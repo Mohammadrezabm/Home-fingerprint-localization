@@ -17,8 +17,10 @@ def locator(coordinates, rssi, macs):
 				match += 1
 				if(match == len(macs)):
 					found = coordinate
+					plt.close()
 					plt.plot(int(coordinate[1]),int(coordinate[4]), 'ro')
-					plt.show()
+					plt.pause(0.0005)
+					plt.show(block=False)
 					end = str(input('Please enter quit to quit or press enter to continue: '))
 					if(end == 'quit'):
 						exit()
@@ -58,8 +60,6 @@ while(end != 'quit'):
 
 
 	data = locator(coordinates,rssi,macs)
-	if(type(data[1]) == str):
-		print('this ' + data[1])
 	if(data[0] != len(macs) and performer == 5):
 		var = str(input('The program searched for 5 times and no match was found! To quit enter quit or press enter to proceed please: '))
 		if(var == 'quit'):
