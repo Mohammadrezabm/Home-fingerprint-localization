@@ -1,4 +1,7 @@
 import pickle, pyshark, matplotlib.pyplot as plt
+from PIL import Image
+import numpy as np
+import re
 
 #Variables
 end = ''
@@ -6,24 +9,38 @@ macs = []
 beacon = 'not captured'
 rssi = {}
 performer = 0
+img = Image.open('house_plan.jpg')
 
 #Locator function
-def locator(coordinates, rssi, macs):
+def locator(coordinates, rssi, macs, img):
 	found = []
-	for coordinate, map in coordinates.items():
+	for coordinate, plan in coordinates.items():
 		match = 0
 		for mac in macs:
-			if str(rssi[mac][0]) in map[mac]:
+			if str(rssi[mac][0]) in plan[mac]:
 				match += 1
 				if(match == len(macs)):
 					found = coordinate
-					plt.close()
-					plt.plot(int(coordinate[1]),int(coordinate[4]), 'ro')
-					plt.pause(0.0005)
-					plt.show(block=False)
+					print(found)
+					temp = re.findall(r'\d+',found)
+					res = list(map(int,temp))
+					xy2imgxy = lambda x,y: (img.size[0]*x/np.max(ticklx), img.size[1]*(np.max(tickly)-y)/np.max(tickly))
+					ticklx = np.linspace(0,4,5)
+					tickly = np.linspace(0,12,13)
+					tickpx,tickpy = xy2imgxy(ticklx,tickly)
+					fig,ax = plt.subplots()
+					ax.imshow(img)
+					px,py = res[0],res[1]
+					imgx,imgy = xy2imgxy(px,py)
+					ax.scatter(imgx,imgy,s=100,lw=5,facecolor='none',edgecolor='red')
+					ax.set_xticks([])
+					ax.set_yticks([])
+					plt.show()
 					end = str(input('Please enter quit to quit or press enter to continue: '))
 					if(end == 'quit'):
 						exit()
+					else:
+						plt.close()
 			else:
 				beacon = 'not captured'
 	return [match, found]
@@ -59,7 +76,7 @@ while(end != 'quit'):
 	cap.close()
 
 
-	data = locator(coordinates,rssi,macs)
+	data = locator(coordinates,rssi,macs,img)
 	if(data[0] != len(macs) and performer == 5):
 		var = str(input('The program searched for 5 times and no match was found! To quit enter quit or press enter to proceed please: '))
 		if(var == 'quit'):
