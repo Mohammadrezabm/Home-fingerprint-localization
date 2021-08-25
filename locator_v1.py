@@ -62,6 +62,11 @@ while(end != 'quit'):
 		print('Scanning for beacons please wait.')
 		cap = pyshark.LiveCapture(interface='wlan0')
 		cap.sniff(timeout=2)
+		if(len(cap) == 0):
+			ack = str(input('The program is unable to receive packets please check your WIFI interface setting and retry. To try again please press enter or type exit to exit the program: '))
+			if(ack == 'exit'):
+				exit()
+			continue
 
 		for mac in macs:
 			for packet in cap:
