@@ -37,7 +37,7 @@ macs = numpy.unique(macs)
 macs = list(macs)
 
 if(len(macs) <= 1):
-	print('There are not enough MAC addresses to proceed, exiting the program. We are sorry for the inconvinience.')
+	print('There are not enough MAC addresses to proceed, exiting the program. We are sorry for the inconvenience.')
 	exit()
 
 #Main program
@@ -48,7 +48,7 @@ while(end != 'quit'):
 	cap.clear()
 	cap.close()
 	del(cap)
-	while(type(x) != int):	#Asks for the coordniates to record the RSSIs
+	while(type(x) != int):	#Asks for the coordinates to record the RSSIs
 		try:
 			x = int(input('Please enter the x coordinate: '))
 		except ValueError:

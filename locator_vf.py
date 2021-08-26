@@ -62,7 +62,7 @@ while(end != 'quit'):
 	while(beacon != 'captured'):
 		print('Scanning for beacons please wait...')
 		cap = pyshark.LiveCapture(interface='wlan0')	#CHANGE the interface to the WIFI interface with monitor mode on of your device please
-		cap.sniff(timeout=2)	#Change in case a longer or shoter time of sniffing is needed
+		cap.sniff(timeout=2)	#Change in case a longer or shorter time of sniffing is needed
 		if(len(cap) == 0):
 			ack = str(input('The program was unable to receive packets, please check your WIFI interface settings and retry. To try again please press enter or type exit to exit the program: '))
 			if(ack == 'exit'):
