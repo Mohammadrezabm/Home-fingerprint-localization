@@ -11,6 +11,7 @@ beacon = 'not captured'
 rssi = {}
 performer = 0
 img = Image.open('house_plan.jpg')	#Enter the path and the name of the building plan image to see the indicator on
+map_file = str(input('Please enter the name and path of the map file for localization: '))
 
 #Locator function that finds the location of the device
 def locator(coordinates, rssi, macs, img):
@@ -47,7 +48,7 @@ def locator(coordinates, rssi, macs, img):
 	return [match, found]
 
 #Reading the fingerprint map file
-with open('coordinates.py','rb') as file:	#Please enter the path and the name of the FINGERPRINT file HERE
+with open(map_file,'rb') as file:	#Please enter the path and the name of the FINGERPRINT file HERE
 	coordinates = pickle.load(file)
 
 #Ectracting the MAC addresses of the map file
