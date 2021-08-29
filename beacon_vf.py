@@ -12,26 +12,26 @@ file_name = 'coordinates_' + time + '.py'
 cap = pyshark.LiveCapture(interface='wlan0')
 
 if(default.lower() == 'default'):
-	macs = ['ea:6d:cb:3d:f3:6e', 'b6:ce:40:8d:40:86']
+	macs = ['17-84-fb-35-c9-e7', 'ae-65-be-8a-74-24']
 else:
 	finish = ''
 	while(finish.lower() != 'done'):
 		finish = str(input('Please enter the MAC address or type done to proceed: '))
 		if(finish != 'done'):
-			macs.append(finish)
+			macs.append(finish.lower())
 
 macs = numpy.unique(macs)
 macs = list(macs)
 if(len(macs) <= 1):
 	confirm = str(input('You have entered less than two MAC addresses, to proceed at least two MAC addresses are needed. Please either type default to proceed or press enter to add new MAC addresses: '))
 	if(confirm.lower() == 'default'):
-		macs = ['ea:6d:cb:3d:f3:6e', 'b6:ce:40:8d:40:86']
+		macs = ['17-84-fb-35-c9-e7', 'ae-65-be-8a-74-24']
 	else:
 		value = ''
 		while(value.lower() != 'done'):
                 	value = str(input('Please enter a new MAC address or type done to proceed: '))
                 	if(value != 'done'):
-                        	macs.append(value)
+                        	macs.append(value.lower())
 
 macs = numpy.unique(macs)
 macs = list(macs)
